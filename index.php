@@ -1,3 +1,32 @@
+<?php
+    include("database.php");
+    
+    $message = '';
+    
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $patientId = mysqli_real_escape_string($conn, $_POST['patient-id']);
+        $firstname = mysqli_real_escape_string($conn, $_POST['firstname']);
+        $lastname = mysqli_real_escape_string($conn, $_POST['lastname']);
+        $dob = mysqli_real_escape_string($conn, $_POST['dob']);
+        $gender = mysqli_real_escape_string($conn, $_POST['gender']);
+        $medicalCondition = mysqli_real_escape_string($conn, $_POST['medical-condition']);
+        $medication = mysqli_real_escape_string($conn, $_POST['medication']);
+        $appointmentDate = mysqli_real_escape_string($conn, $_POST['appointment-date']);
+        $doctorName = mysqli_real_escape_string($conn, $_POST['doctor-name']);
+        $notes = mysqli_real_escape_string($conn, $_POST['notes']);
+
+        $sql = "INSERT INTO patients (PatientID, Firstname, Lastname, DOB, Gender, Medical_condition, 
+                Medication, Appointment_date, Doctor_name, Doctor_notes)
+                VALUES ('$patientId', '$firstname', '$lastname', '$dob', '$gender', '$medicalCondition', 
+                '$medication', '$appointmentDate', '$doctorName', '$notes')";
+
+        if (mysqli_query($conn, $sql)) {
+            $message = '<div class="alert alert-success">Patient data saved successfully!</div>';
+        } else {
+            $message = '<div class="alert alert-danger">Error: ' . mysqli_error($conn) . '</div>';
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,11 +36,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container shadow p-3 rounded my-5">
-    <h2 style="padding: 20px; color: lightcoral;" class="text-center">Adeleke University Medical Center</h2>
-    <h4 style="padding: 20px; color: lightcoral;" class="text-center">Registration Form</h4>
+    
 
-        <form id="patient-form">
+    <div class="container shadow p-5 my-5">
+        <h2 style="padding: 20px; color: lightcoral;" class="text-center">Adeleke University Medical Center</h2>
+        <h4 style="padding: 20px; color: lightcoral;" class="text-center">Patient Details Form</h4>
+
+        <?php echo $message; ?>
+
+        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="form-group">
                 <label for="patient-id">Patient ID</label>
                 <input type="text" class="form-control" id="patient-id" name="patient-id" required>
@@ -59,44 +92,5 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function() {
-    $('#patient-form').submit(function(event) {
-        event.preventDefault();
-
-        const formData = {
-            'patient-id': document.getElementById('patient-id').value,
-            'firstname': $('#firstname').val(),
-            'lastname': $('#lastname').val(),
-            'dob': $('#dob').val(),
-            'gender': $('#gender').val(),
-            'medical-condition': $('#medical-condition').val(),
-            'medication': $('#medication').val(),
-            'appointment-date': $('#appointment-date').val(),
-            'doctor-name': $('#doctor-name').val(),
-            'notes': $('#notes').val()
-        }; 
-
-        $.ajax({
-            type: 'POST',
-            url: 'server.php', 
-            data: formData,
-            success: function(response) {
-                alert('Patient data saved successfully!');
-                $('#patient-form')[0].reset();
-            },
-            error: function(xhr, status, error) {
-                alert('Error saving patient data: ' + error);
-            }
-        });
-    });
-});
-    </script>
 </body>
 </html>
-
-
-
