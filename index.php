@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container my-5">
+    <div class="container shadow p-3 rounded my-5">
     <h2 style="padding: 20px; color: lightcoral;" class="text-center">Adeleke University Medical Center</h2>
     <h4 style="padding: 20px; color: lightcoral;" class="text-center">Registration Form</h4>
 
