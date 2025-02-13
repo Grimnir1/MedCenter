@@ -1,0 +1,13 @@
+.patient-info p {
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: #f8f9fa;
+}
+.patient-info p:hover {
+    background-color: #e9ecef;
+}
+.patient-header {
+    background-color: #f8f9fa;
+    border-left: 4px solid #0d6efd;
+}

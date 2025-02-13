@@ -67,16 +67,33 @@
             if (mysqli_num_rows($result) > 0) {
                 $row = mysqli_fetch_assoc($result);
                 $patientData = "
-                    <div class='shadow p-5 rounded form-floating form-floating d-grid gap-2 container animate__animated animate__zoomIn animate__delay-.1s justify-content-center'> 
-                        <p>Patient ID: " . $row["PatientID"] . "</p>
-                        <p>Name: " . $row["Firstname"] . " " . $row["Lastname"] . "</p>
-                        <p>Date of Birth: " . $row["DOB"] . "</p>
-                        <p>Gender: " . $row["Gender"] . "</p>
-                        <p>Medical Condition: " . $row["Medical_condition"] . "</p>
-                        <p>Medication: " . $row["Medication"] . "</p>
-                        <p>Appointment Date: " . $row["Appointment_date"] . "</p>
-                        <p>Doctor Name: " . $row["Doctor_name"] . "</p>
-                        <p>Notes: " . $row["Doctor_notes"] . "</p>
+                    <div class='container py-4 shadow border-0 animate__animated animate__zoomIn animate__delay-.1s'>
+                        <div class='patient-header p-3 mb-4 rounded'>
+                            <h1 class='h2 mb-0'>" . $row["Firstname"] . " " . $row["Lastname"] . "</h1>
+                        </div>
+                        
+                        <div class='card shadow-sm border-0'>
+                            <div class='card-header bg-primary text-white d-flex justify-content-between align-items-center'>
+                                <h5 class='mb-0'>Patient Information</h5>
+                                <span class='badge bg-light text-primary'>ID: " . $row["PatientID"] . "</span>
+                            </div>
+                            
+                            <div class='card-body patient-info'>
+                                <div class='row'>
+                                    <div class='col-md-6'>
+                                        <p><strong>Date of Birth:</strong> " . $row["DOB"] . " </p>
+                                        <p><strong>Gender:</strong> " . $row["Gender"] . "</p>
+                                        <p><strong>Medical Condition:</strong> " . $row["Medical_condition"] . "</p>
+                                        <p><strong>Medication:</strong> " . $row["Medication"] . "</p>
+                                    </div>
+                                    <div class='col-md-6'>
+                                        <p><strong>Appointment Date:</strong> " . $row["Appointment_date"] . "</p>
+                                        <p><strong>Doctor Name:</strong> " . $row["Doctor_name"] . "</p>
+                                        <p style='white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;'><strong>Notes:</strong> " . $row["Doctor_notes"] . "</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 ";
                 echo "<div id='show'>$patientData</div>";
@@ -90,3 +107,4 @@
 ?>
 
 <?php require 'footer.php'?>
+
